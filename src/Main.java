@@ -27,6 +27,7 @@ public class Main {
 		}
 			
 		mentionsParser.getStatusText();
+		mentionsParser.getMentionsScreenName();
 		
 		}
 			
