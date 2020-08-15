@@ -26,14 +26,20 @@ public class Main {
 			e.printStackTrace();
 		}
 			
-		mentionsParser.getStatusText();
-		mentionsParser.getMentionsScreenName();
+		//mentionsParser.getStatusText();
+		//mentionsParser.getMentionsScreenName();
 		
 		}
 			
 		public static void NewTweet() {
 			Twitter twitter = TwitterFactory.getSingleton();
-			String myTweet ="This is a test tweet";
+			
+			//store the screenName for most recent mention into userScreenName
+			String userScreenName = mentionsParser.getMentionsScreenName();
+			//construct tweet using the userScreenName
+			String myTweet ="@" + userScreenName + " you should play Super Metroid";
+			
+			//update the status
 			try {
 			   Status status = twitter.updateStatus(myTweet);
 			   System.out.print("Sucessful " + status.getText());

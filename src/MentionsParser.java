@@ -5,14 +5,17 @@ import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.User;
 
+import java.util.Date;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class MentionsParser {
 	
-	//Get mentions list from java and parse it. 
+	//get text from the mention
 	public String getStatusText() {
+		//create variable to hold mentionsTimeline
 		ResponseList<Status> mentionsTimeline = null;
 		
 		Twitter twitter = TwitterFactory.getSingleton();
@@ -24,9 +27,13 @@ public class MentionsParser {
 			e.printStackTrace();
 		}
 			
+		//get the most recent mention 
 		Status mentionsAtZero = mentionsTimeline.get(0);
+		//get the text from the most recent mention
 		String mentionsText = mentionsAtZero.getText();
-		System.out.println(mentionsText);
+		
+		//print mentions text (this will be removed, used to test result)
+		//System.out.println(mentionsText);
 		
 		//FIX ME 
 		//Parse out the @screenname 
@@ -50,9 +57,27 @@ public class MentionsParser {
 		Status mentionsAtZero = mentionsTimeline.get(0);
 		User mentionsUser = mentionsAtZero.getUser();
 		String mentionsScreenName = mentionsUser.getScreenName();
-		System.out.println(mentionsScreenName);
+		//System.out.println(mentionsScreenName);
 		
 		return mentionsScreenName;
+	}
+	
+	//get tweetID
+	public Long getTweetID() {
+		ResponseList<Status> mentionsTimeline = null;
+		
+		Twitter twitter = TwitterFactory.getSingleton();
+		try {
+			mentionsTimeline = twitter.getMentionsTimeline();
+		}
+		catch(TwitterException e) {
+			e.printStackTrace();
+		}
+		
+		Status mentionsAtZero = mentionsTimeline.get(0);
+		Long mentionsStatusID = mentionsAtZero.getId();
+		
+		return mentionsStatusID;
 	}
 
 }
