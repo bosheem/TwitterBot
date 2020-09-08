@@ -14,48 +14,33 @@ import org.json.JSONObject;
 public class MentionsParser {
 	
 	//get text from the mention
-	public String getStatusText() {
-		//create variable to hold mentionsTimeline
-		ResponseList<Status> mentionsTimeline = null;
-		
-		Twitter twitter = TwitterFactory.getSingleton();
-		try {
-		mentionsTimeline = twitter.getMentionsTimeline();
-		
-		}
-		catch(TwitterException e){
-			e.printStackTrace();
-		}
-			
-		//get the most recent mention 
-		Status mentionsAtZero = mentionsTimeline.get(0);
+	public String getStatusText(Status statusToUpdate) {
+
 		//get the text from the most recent mention
-		String mentionsText = mentionsAtZero.getText();
+		String mentionsText = statusToUpdate.getText();
 		
 		//print mentions text (this will be removed, used to test result)
 		//System.out.println(mentionsText);
-		
-		//FIX ME 
-		//Parse out the @screenname 
-		
-		return mentionsText;
+        
+        String[] mentionsTextArr = mentionsText.split(" ");
+        String parsedText = "";
+
+        for(int i = 0; i <= mentionsTextArr.length - 1; ++i){
+            if(mentionsTextArr[i].charAt(0) == '@'){
+               mentionsTextArr[i] = "";
+            }
+        parsedText = parsedText + mentionsTextArr[i] + " ";
+        }
+        
+        System.out.println(parsedText);
+        
+		return parsedText;
 		
 	}
 	
-	public String getMentionsScreenName() {
-		ResponseList<Status> mentionsTimeline = null;
-		
-		Twitter twitter = TwitterFactory.getSingleton();
-		try {
-		mentionsTimeline = twitter.getMentionsTimeline();
-		
-		}
-		catch(TwitterException e){
-			e.printStackTrace();
-		}
-			
-		Status mentionsAtZero = mentionsTimeline.get(0);
-		User mentionsUser = mentionsAtZero.getUser();
+	public String getMentionsScreenName(Status screenNameToUpdate) {
+
+		User mentionsUser = screenNameToUpdate.getUser();
 		String mentionsScreenName = mentionsUser.getScreenName();
 		//System.out.println(mentionsScreenName);
 		

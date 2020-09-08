@@ -1,7 +1,12 @@
+import twitter4j.ResponseList;
 import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
+
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -10,34 +15,30 @@ import org.json.JSONObject;
 public class Main {
 	
 	static MentionsParser mentionsParser = new MentionsParser();
+	static ResponseList<Status> previousMentions = null;
+	static ResponseList<Status> currentMentions = null;
+	static ResponseList<Status> mentionsToUpdate = null;
+	static int count;
 
-	public static void main(String[] args) throws JSONException {
+	public static void main(String[] args){
 		// TODO Auto-generated method stub
+			
+		MentionsToUpdate();
 		
-		System.out.print("this is just a test");
-		NewTweet();	
-		Twitter t = TwitterFactory.getSingleton();
-		try {
-		System.out.print(t.getMentionsTimeline());
+		//Timer timer = new Timer();
+		//TimerTask task = new ReplyToMentions();
 				
-		}
-		
-		catch(TwitterException e){
-			e.printStackTrace();
-		}
-			
-		//mentionsParser.getStatusText();
-		//mentionsParser.getMentionsScreenName();
+		//timer.scheduleAtFixedRate(task, new Date(), 2000);
 		
 		}
 			
-		public static void NewTweet() {
+		/*public static void NewTweet() {
 			Twitter twitter = TwitterFactory.getSingleton();
 			
 			//store the screenName for most recent mention into userScreenName
-			String userScreenName = mentionsParser.getMentionsScreenName();
+			//String userScreenName = mentionsParser.getMentionsScreenName();
 			//construct tweet using the userScreenName
-			String myTweet ="@" + userScreenName + " you should play Super Metroid";
+			//String myTweet ="@" + userScreenName + " you should play Super Metroid";
 			
 			//update the status
 			try {
@@ -48,7 +49,87 @@ public class Main {
 				e.printStackTrace();
 				System.out.print("failed");
 				}
+			} */
+		
+		public static ResponseList<Status> MentionsToUpdate() {
+			
+			Twitter t = TwitterFactory.getSingleton();
+			try {
+			currentMentions = t.getMentionsTimeline();		
 			}
+			catch(TwitterException e){
+				e.printStackTrace();
+			}
+			
+			if (previousMentions == null) {
+				ResponseList<Status> previousMentionsHolder = currentMentions;
+				previousMentions = previousMentionsHolder;
+				previousMentions.remove(0);
+			}
+			
+			if(currentMentions != previousMentions) {
+				count = currentMentions.size();
+				int difference = currentMentions.size() - previousMentions.size();
+				for(int i = previousMentions.size(); i >= 0; --i) {
+					if(currentMentions.get(i + difference) == previousMentions.get(i)) {
+						count -= 1;
+					}
+				}
+				for(int i = 0; i <= count - 1; ++i) {
+					mentionsToUpdate.add(currentMentions.get(i));
+				}
+				
+				previousMentions = currentMentions;
+			}
+			
+			System.out.println(previousMentions == currentMentions);
+			System.out.println(previousMentions.size());
+			System.out.println(currentMentions.size());
+			
+			System.out.println("These are the " + mentionsToUpdate);
+				
+			//mentionsParser.getStatusText();
+			//mentionsParser.getMentionsScreenName();
+			
+			//NewTweet();
+			
+			return mentionsToUpdate;
+		}
+		
+	static class ReplyToMentions extends TimerTask{
+		public void run() {
+			
+			Twitter t = TwitterFactory.getSingleton();
+			
+			ResponseList<Status> mentionsToUpdate = MentionsToUpdate();
+			
+			if(mentionsToUpdate != null) {
+				
+				String screenName = "";
+				String statusText = "";
+
+				for(int i = 0; i < mentionsToUpdate.size(); ++i) {
+					Status statusToUpdate = mentionsToUpdate.get(i);
+					screenName = mentionsParser.getMentionsScreenName(statusToUpdate);
+					statusText = mentionsParser.getStatusText(statusToUpdate);
+
+					//construct tweet using the userScreenName
+					String myTweet ="@" + screenName + " you should play Super Metroid";
+
+					//update the status
+					try {
+						Status status = t.updateStatus(myTweet);
+						System.out.print("Sucessful " + status.getText());
+					}
+					catch(TwitterException e){
+						e.printStackTrace();
+						System.out.print("failed");
+					}
+				}
+			 }
+		  }
+		}
+	
 
 
 }
