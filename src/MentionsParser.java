@@ -7,10 +7,6 @@ import twitter4j.User;
 
 import java.util.Date;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 public class MentionsParser {
 	
 	//get text from the mention

@@ -7,6 +7,5 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="C:/Users/boshe/eclipse-workspace/TwitterBotVG/lib/twitter4j-core-4.0.7.jar"/>
-	<classpathentry kind="lib" path="C:/Users/boshe/eclipse-workspace/TwitterBotVG/lib/java-json.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

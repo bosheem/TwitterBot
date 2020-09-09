@@ -7,9 +7,6 @@ import twitter4j.TwitterFactory;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 
 public class Main {
