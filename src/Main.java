@@ -59,7 +59,14 @@ public class Main {
 			}
 			
 			if (previousMentions == null) {
-				ResponseList<Status> previousMentionsHolder = currentMentions;
+				ResponseList<Status> previousMentionsHolder = null;
+				try {
+					previousMentionsHolder = t.getMentionsTimeline();		
+					}
+				catch(TwitterException e){
+					e.printStackTrace();
+					}
+				
 				previousMentions = previousMentionsHolder;
 				previousMentions.remove(0);
 			}
@@ -67,9 +74,12 @@ public class Main {
 			if(currentMentions != previousMentions) {
 				count = currentMentions.size();
 				int difference = currentMentions.size() - previousMentions.size();
-				for(int i = previousMentions.size(); i >= 0; --i) {
-					if(currentMentions.get(i + difference) == previousMentions.get(i)) {
+				System.out.println(currentMentions.size());
+				System.out.println(previousMentions.size());
+				for(int i = previousMentions.size(); i > 0; --i) {
+					if(currentMentions.get((i - 1) + difference) == previousMentions.get(i-1)) {
 						count -= 1;
+						System.out.println(count);
 					}
 				}
 				for(int i = 0; i <= count - 1; ++i) {
@@ -126,6 +136,30 @@ public class Main {
 			 }
 		  }
 		}
+	
+	public ResponseList<Status> getCurrentMentions(){
+	    return currentMentions;
+	}
+
+	public ResponseList<Status> getPreviousMentions(){
+	    return previousMentions;
+	}
+
+	public ResponseList<Status> getMentionsToUpdate(){
+	    return mentionsToUpdate;
+	}
+
+	public void setCurrentMentions(ResponseList<Status> newCurrentMentions){
+	    this.currentMentions = newCurrentMentions;
+	}
+
+	public void setPreviousMentions(ResponseList<Status> newPreviousMentions){
+	    this.previousMentions = newPreviousMentions;
+	}
+
+	public void setMentionsToUpdate(ResponseList<Status> newUpdateMentions){
+	    this.mentionsToUpdate = newUpdateMentions;
+	} 
 	
 
 
