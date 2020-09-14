@@ -76,8 +76,10 @@ public class Main {
 				int difference = currentMentions.size() - previousMentions.size();
 				System.out.println(currentMentions.size());
 				System.out.println(previousMentions.size());
-				for(int i = previousMentions.size(); i > 0; --i) {
-					if(currentMentions.get((i - 1) + difference) == previousMentions.get(i-1)) {
+				System.out.println(difference);
+				for(int i = previousMentions.size(); i > 0; i--) {
+					System.out.println(i);
+					if(currentMentions.get((i - 1) + difference) == previousMentions.get(i - 1)) {
 						count -= 1;
 						System.out.println(count);
 					}
