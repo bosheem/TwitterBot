@@ -48,11 +48,18 @@ public class Main {
 				}
 			} */
 		
-		public static ResponseList<Status> MentionsToUpdate() {
+		public static ResponseList<Status> MentionsToUpdate(){ 
 			
 			Twitter t = TwitterFactory.getSingleton();
 			try {
 			currentMentions = t.getMentionsTimeline();		
+			}
+			catch(TwitterException e){
+				e.printStackTrace();
+			}
+			
+			try {
+			mentionsToUpdate = t.getMentionsTimeline();		
 			}
 			catch(TwitterException e){
 				e.printStackTrace();
@@ -70,6 +77,21 @@ public class Main {
 				previousMentions = previousMentionsHolder;
 				previousMentions.remove(0);
 			}
+			
+			for(int i = 0; i <= previousMentions.size() - 1; ++i){
+				   for(int j = 0; j <= currentMentions.size() - 1; ++j){
+					   System.out.println(previousMentions.get(i).equals(currentMentions.get(j)));
+				      if(previousMentions.get(i).equals(currentMentions.get(j))){
+				         mentionsToUpdate.remove(j);
+				     }
+				   }
+				}
+
+			return mentionsToUpdate;
+		}
+			/*
+			
+
 			
 			if(currentMentions != previousMentions) {
 				count = currentMentions.size();
@@ -104,8 +126,9 @@ public class Main {
 			
 			return mentionsToUpdate;
 		}
+		*/
 		
-	static class ReplyToMentions extends TimerTask{
+	 class ReplyToMentions extends TimerTask{
 		public void run() {
 			
 			Twitter t = TwitterFactory.getSingleton();
@@ -139,30 +162,8 @@ public class Main {
 		  }
 		}
 	
-	public ResponseList<Status> getCurrentMentions(){
-	    return currentMentions;
-	}
 
-	public ResponseList<Status> getPreviousMentions(){
-	    return previousMentions;
-	}
-
-	public ResponseList<Status> getMentionsToUpdate(){
-	    return mentionsToUpdate;
-	}
-
-	public void setCurrentMentions(ResponseList<Status> newCurrentMentions){
-	    this.currentMentions = newCurrentMentions;
-	}
-
-	public void setPreviousMentions(ResponseList<Status> newPreviousMentions){
-	    this.previousMentions = newPreviousMentions;
-	}
-
-	public void setMentionsToUpdate(ResponseList<Status> newUpdateMentions){
-	    this.mentionsToUpdate = newUpdateMentions;
-	} 
 	
 
-
+	
 }
