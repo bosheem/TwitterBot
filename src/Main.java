@@ -21,6 +21,7 @@ public class Main {
 		// TODO Auto-generated method stub
 			
 		MentionsToUpdate();
+		System.out.println(mentionsParser.getStatusText(MentionsToUpdate().get(0)));
 		
 		//Timer timer = new Timer();
 		//TimerTask task = new ReplyToMentions();
@@ -78,8 +79,8 @@ public class Main {
 				previousMentions.remove(0);
 			}
 			
-			for(int i = 0; i <= previousMentions.size() - 1; ++i){
-				   for(int j = 0; j <= currentMentions.size() - 1; ++j){
+			for(int i = previousMentions.size() - 1; i >= 0; --i){
+				   for(int j = currentMentions.size() - 1; j >= 0; --j){
 					   System.out.println(previousMentions.get(i).equals(currentMentions.get(j)));
 				      if(previousMentions.get(i).equals(currentMentions.get(j))){
 				         mentionsToUpdate.remove(j);

@@ -28,8 +28,6 @@ public class MentionsParser {
         parsedText = parsedText + mentionsTextArr[i] + " ";
         }
         
-        System.out.println(parsedText);
-        
 		return parsedText;
 		
 	}
