@@ -3,6 +3,7 @@ import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
+import java.util.Random;
 
 import java.util.Date;
 import java.util.Timer;
@@ -19,7 +20,7 @@ public class Main {
 
 	public static void main(String[] args){
 		// TODO Auto-generated method stub
-			
+		//FIXME	
 		MentionsToUpdate();
 		System.out.println(mentionsParser.getStatusText(MentionsToUpdate().get(0)));
 		
@@ -30,24 +31,34 @@ public class Main {
 		
 		}
 			
-		/*public static void NewTweet() {
+		public static void NewTweet() {
 			Twitter twitter = TwitterFactory.getSingleton();
+			String screenName;
+			String myTweet = "";
+			Random rand = new Random();
+			ResponseList<Status> mentionsToUpdate = MentionsToUpdate();
+			String[] gamesToSuggest = {"Arkham City", "Xenoblade Chronicles 2", "Final Fantasy XIV", "Into the Breach", "Faster Than Light"
+					+ "Dragon Age Origins", "Neverwinter Nights", "Fire Emblem Three Houses", "Super Smash Bros Ultimate", "Super Mario Odyssey"
+					+ "Legend of Zelda Breath of the Wild", "Assassins Creed Odyssey", "Ghost of Tsushima", "Uncharted", "Horizon Zero Dawn"
+					+ "God of War", "Final Fantasy VII Remake", "Animal Crossing New Horizon", "Stardew Valley", "Donkey Kong Tropical Freeze"};
 			
-			//store the screenName for most recent mention into userScreenName
-			//String userScreenName = mentionsParser.getMentionsScreenName();
-			//construct tweet using the userScreenName
-			//String myTweet ="@" + userScreenName + " you should play Super Metroid";
-			
-			//update the status
-			try {
-			   Status status = twitter.updateStatus(myTweet);
-			   System.out.print("Sucessful " + status.getText());
-			}
-			catch(TwitterException e){
-				e.printStackTrace();
-				System.out.print("failed");
+			for(int i = 0; i < mentionsToUpdate.size() - 1; ++i) {
+				int randInt = rand.nextInt(19);
+				screenName = mentionsParser.getMentionsScreenName(mentionsToUpdate.get(i));
+				myTweet = "@" + screenName + " you should play " + gamesToSuggest[randInt];
+				
+				//update the status
+				try {
+				   Status status = twitter.updateStatus(myTweet);
+				   System.out.print("Sucessful " + status.getText());
 				}
-			} */
+				catch(TwitterException e){
+					e.printStackTrace();
+					System.out.print("failed");
+					}
+			}
+			
+			} 
 		
 		public static ResponseList<Status> MentionsToUpdate(){ 
 			
