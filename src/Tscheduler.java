@@ -4,6 +4,7 @@ import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import java.util.TimerTask;
+import java.util.Scanner;
 
 public class Tscheduler extends TimerTask {
 	
@@ -11,11 +12,9 @@ public class Tscheduler extends TimerTask {
 
 	@Override
 	public void run() {
+
 		// TODO Auto-generated method stub
 		mane.NewTweet(); 
-		
-		
-		
 		
 	}
 	

@@ -20,9 +20,10 @@ public class Main {
 
 	public static void main(String[] args){
 		// TODO Auto-generated method stub
-		//FIXME	
-		MentionsToUpdate();
-		System.out.println(mentionsParser.getStatusText(MentionsToUpdate().get(0)));
+
+		Timer timer = new Timer();
+		Tscheduler schTweets = new Tscheduler();
+		timer.scheduleAtFixedRate(schTweets, 0, 30000);
 		
 		}
 			
@@ -87,7 +88,6 @@ public class Main {
 			
 			for(int i = previousMentions.size() - 1; i >= 0; --i){
 				   for(int j = currentMentions.size() - 1; j >= 0; --j){
-					   System.out.println(previousMentions.get(i).equals(currentMentions.get(j)));
 				      if(previousMentions.get(i).equals(currentMentions.get(j))){
 				         mentionsToUpdate.remove(j);
 				     }
