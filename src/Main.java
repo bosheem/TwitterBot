@@ -24,14 +24,9 @@ public class Main {
 		MentionsToUpdate();
 		System.out.println(mentionsParser.getStatusText(MentionsToUpdate().get(0)));
 		
-		//Timer timer = new Timer();
-		//TimerTask task = new ReplyToMentions();
-				
-		//timer.scheduleAtFixedRate(task, new Date(), 2000);
-		
 		}
 			
-		public static void NewTweet() {
+		public void NewTweet() {
 			Twitter twitter = TwitterFactory.getSingleton();
 			String screenName;
 			String myTweet = "";
@@ -101,44 +96,7 @@ public class Main {
 
 			return mentionsToUpdate;
 		}
-			/*
 			
-
-			
-			if(currentMentions != previousMentions) {
-				count = currentMentions.size();
-				int difference = currentMentions.size() - previousMentions.size();
-				System.out.println(currentMentions.size());
-				System.out.println(previousMentions.size());
-				System.out.println(difference);
-				for(int i = previousMentions.size(); i > 0; i--) {
-					System.out.println(i);
-					if(currentMentions.get((i - 1) + difference) == previousMentions.get(i - 1)) {
-						count -= 1;
-						System.out.println(count);
-					}
-				}
-				for(int i = 0; i <= count - 1; ++i) {
-					mentionsToUpdate.add(currentMentions.get(i));
-				}
-				
-				previousMentions = currentMentions;
-			}
-			
-			System.out.println(previousMentions == currentMentions);
-			System.out.println(previousMentions.size());
-			System.out.println(currentMentions.size());
-			
-			System.out.println("These are the " + mentionsToUpdate);
-				
-			//mentionsParser.getStatusText();
-			//mentionsParser.getMentionsScreenName();
-			
-			//NewTweet();
-			
-			return mentionsToUpdate;
-		}
-		*/
 		
 	 class ReplyToMentions extends TimerTask{
 		public void run() {
