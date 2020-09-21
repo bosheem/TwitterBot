@@ -38,6 +38,8 @@ public class Main {
 					+ "Legend of Zelda Breath of the Wild", "Assassins Creed Odyssey", "Ghost of Tsushima", "Uncharted", "Horizon Zero Dawn"
 					+ "God of War", "Final Fantasy VII Remake", "Animal Crossing New Horizon", "Stardew Valley", "Donkey Kong Tropical Freeze"};
 			
+			//FIXME
+			
 			for(int i = 0; i < mentionsToUpdate.size() - 1; ++i) {
 				int randInt = rand.nextInt(19);
 				screenName = mentionsParser.getMentionsScreenName(mentionsToUpdate.get(i));
