@@ -14,8 +14,12 @@ public class Tscheduler extends TimerTask {
 	public void run() {
 
 		// TODO Auto-generated method stub
+		int count = 0; 
 		mane.NewTweet(); 
+		++count;
 		
+		if(count > 500)
+			System.exit(0);
 	}
 	
 	

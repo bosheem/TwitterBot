@@ -33,10 +33,10 @@ public class Main {
 			String myTweet = "";
 			Random rand = new Random();
 			ResponseList<Status> mentionsToUpdate = MentionsToUpdate();
-			String[] gamesToSuggest = {"Arkham City", "Xenoblade Chronicles 2", "Final Fantasy XIV", "Into the Breach", "Faster Than Light"
-					+ "Dragon Age Origins", "Neverwinter Nights", "Fire Emblem Three Houses", "Super Smash Bros Ultimate", "Super Mario Odyssey"
-					+ "Legend of Zelda Breath of the Wild", "Assassins Creed Odyssey", "Ghost of Tsushima", "Uncharted", "Horizon Zero Dawn"
-					+ "God of War", "Final Fantasy VII Remake", "Animal Crossing New Horizon", "Stardew Valley", "Donkey Kong Tropical Freeze"};
+			String[] gamesToSuggest = {"Arkham City", "Xenoblade Chronicles 2", "Final Fantasy XIV", "Into the Breach", "Faster Than Light",
+					"Dragon Age Origins", "Neverwinter Nights", "Fire Emblem Three Houses", "Super Smash Bros Ultimate", "Super Mario Odyssey", 
+					"Legend of Zelda Breath of the Wild", "Assassins Creed Odyssey", "Ghost of Tsushima", "Uncharted", "Horizon Zero Dawn",
+					"God of War", "Final Fantasy VII Remake", "Animal Crossing New Horizon", "Stardew Valley", "Donkey Kong Tropical Freeze"};
 			
 			for(int i = 0; i <= mentionsToUpdate.size() - 1; ++i) {
 				int randInt = rand.nextInt(19);
@@ -83,7 +83,6 @@ public class Main {
 					}
 				
 				previousMentions = previousMentionsHolder;
-				previousMentions.remove(0);
 			}
 			
 			for(int i = previousMentions.size() - 1; i >= 0; --i){
