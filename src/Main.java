@@ -23,7 +23,7 @@ public class Main {
 
 		Timer timer = new Timer();
 		Tscheduler schTweets = new Tscheduler();
-		timer.scheduleAtFixedRate(schTweets, 0, 30000);
+		timer.scheduleAtFixedRate(schTweets, 0, 900000);
 		
 		}
 			
@@ -92,44 +92,11 @@ public class Main {
 				     }
 				   }
 				}
+			previousMentions = currentMentions;
 
 			return mentionsToUpdate;
 		}
 			
-		
-	 class ReplyToMentions extends TimerTask{
-		public void run() {
-			
-			Twitter t = TwitterFactory.getSingleton();
-			
-			ResponseList<Status> mentionsToUpdate = MentionsToUpdate();
-			
-			if(mentionsToUpdate != null) {
-				
-				String screenName = "";
-				String statusText = "";
-
-				for(int i = 0; i < mentionsToUpdate.size(); ++i) {
-					Status statusToUpdate = mentionsToUpdate.get(i);
-					screenName = mentionsParser.getMentionsScreenName(statusToUpdate);
-					statusText = mentionsParser.getStatusText(statusToUpdate);
-
-					//construct tweet using the userScreenName
-					String myTweet ="@" + screenName + " you should play Super Metroid";
-
-					//update the status
-					try {
-						Status status = t.updateStatus(myTweet);
-						System.out.print("Sucessful " + status.getText());
-					}
-					catch(TwitterException e){
-						e.printStackTrace();
-						System.out.print("failed");
-					}
-				}
-			 }
-		  }
-		}
 	
 
 	
