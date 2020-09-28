@@ -54,6 +54,9 @@ public class Main {
 					}
 			}
 			
+			previousMentions = currentMentions;
+			mentionsToUpdate = null;
+			
 			} 
 		
 		public static ResponseList<Status> MentionsToUpdate(){ 
@@ -92,7 +95,7 @@ public class Main {
 				     }
 				   }
 				}
-			previousMentions = currentMentions;
+			
 
 			return mentionsToUpdate;
 		}
